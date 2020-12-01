@@ -33,9 +33,9 @@ namespace Personagens
                 danoReduzido = 0;
             }
 
-            this.vida = this.vida - danoReduzido;
+            ;
 
-            return this.vida = this.vida - danoReduzido;
+            return danoReduzido;
         }
 
         public int Cura(){

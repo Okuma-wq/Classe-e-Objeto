@@ -41,7 +41,7 @@ namespace Personagens
 
           do{
             Console.WriteLine("-----------------------------------------------------------------------");
-            Console.ForegroundColor = ConsoleColor.Green;
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Write(jogador1.nome);
             Console.ResetColor();
             Console.WriteLine(" o que deseja fazer?");
@@ -52,40 +52,55 @@ namespace Personagens
             do{
             jogador1.Escolha = int.Parse(Console.ReadLine());
 
-            if (jogador1.vida >= 100){
+            if (jogador1.vida >= 100 && jogador1.Escolha == 4){
               Console.ForegroundColor = ConsoleColor.Red;
               Console.WriteLine("Sua vida ja está no máximo, escolha outra ação");
               Console.ResetColor();
             }
-            }while (jogador1.vida >= 100);
+            }while (jogador1.vida >= 100 && jogador1.Escolha == 4);
             
+            do{
             Random J2 = new Random();
-            jogador2.Escolha = J2.Next(1, 4);
+            jogador2.Escolha = J2.Next(1, 5);
+            }while (jogador2.vida >= 100 && jogador2.Escolha == 4);
+
+            
 
             switch (jogador1.Escolha)
             {
               case 1:
                 if(jogador2.Escolha == 3){
-                  jogador2.vida = jogador2.Defesa(jogador1.Ataque1());
+                Console.ForegroundColor = ConsoleColor.Red;
+                  jogador2.vida = jogador2.vida - jogador2.Defesa(jogador1.Ataque1());
+                  int danoReduzido = jogador2.Defesa(jogador1.Ataque1());
+                  Console.WriteLine($"{jogador2.nome} se defendeu e tomou {danoReduzido} de dano!");
                 }else{
+                Console.ForegroundColor = ConsoleColor.Red;
                   jogador2.vida = jogador2.vida - jogador1.Ataque1();
+                  Console.WriteLine($"{jogador2.nome} levou {jogador1.Ataque1()} de dano!");
                 }
                 break;
               case 2:
                 if(jogador2.Escolha == 3){
-                  jogador2.vida = jogador2.Defesa(jogador1.Ataque2());
+                Console.ForegroundColor = ConsoleColor.Red;
+                  jogador2.vida = jogador2.vida - jogador2.Defesa(jogador1.Ataque2());
+                  Console.WriteLine($"{jogador2.nome} se defendeu e tomou 0 de dano!?");
                 }else{
+                Console.ForegroundColor = ConsoleColor.Red;
                   jogador2.vida = jogador2.vida - jogador1.Ataque2();
+                  Console.WriteLine($"{jogador2.nome} levou {jogador1.Ataque2()} de dano!");
                 }
                 break;
               case 3:
                 break;
               case 4:
+                Console.ForegroundColor = ConsoleColor.Green;
                 jogador1.vida = jogador1.Cura();
+                Console.WriteLine($"{jogador1.nome} se curou ficou com {jogador1.Cura()} de vida!?");
                 break;
               default:
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Digitou coisa inválida merece tomar uma de graça");
+                Console.WriteLine("Digitou coisa inválida merece tomar uma de graça!!!");
                 Console.ResetColor();
                 break;
             }
@@ -94,22 +109,37 @@ namespace Personagens
             {
               case 1:
                 if(jogador1.Escolha == 3){
-                  jogador1.vida = jogador1.Defesa(jogador2.Ataque1());
+                Console.ForegroundColor = ConsoleColor.Red;
+                  jogador1.vida = jogador1.vida - jogador1.Defesa(jogador2.Ataque1());
+                  int danoReduzido = jogador1.Defesa(jogador2.Ataque1());
+                  Console.WriteLine($"{jogador1.nome} se defendeu e tomou {danoReduzido} de dano!");                  
                 }else{
+                Console.ForegroundColor = ConsoleColor.Red;
                   jogador1.vida = jogador1.vida - jogador2.Ataque1();
+                  Console.WriteLine($"{jogador1.nome} levou {jogador2.Ataque1()} de dano!");
                 }
                 break;
               case 2:
                 if(jogador1.Escolha == 3){
-                  jogador1.vida = jogador1.Defesa(jogador2.Ataque2());
+                Console.ForegroundColor = ConsoleColor.Red;
+                  jogador1.vida = jogador1.vida - jogador1.Defesa(jogador2.Ataque2());
+                  Console.WriteLine($"{jogador1.nome} se defendeu e tomou 0 de dano!?");
                 }else{
+                Console.ForegroundColor = ConsoleColor.Red;
                   jogador1.vida = jogador1.vida - jogador2.Ataque2();
+                  Console.WriteLine($"{jogador1.nome} levou {jogador2.Ataque2()} de dano!");
                 }
                 break;
               case 3:
+                if (jogador1.Escolha == 3 && jogador2.Escolha == 3){
+                  Console.ForegroundColor = ConsoleColor.Gray;
+                  Console.WriteLine("Ambos tentaram se defender ao mesmo tempo?!");
+                }
                 break;
               case 4:
+                Console.ForegroundColor = ConsoleColor.Green;
                 jogador2.vida = jogador2.Cura();
+                Console.WriteLine($"{jogador2.nome} se curou ficou com {jogador2.Cura()} de vida!?");
                 break;
               default:
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -118,6 +148,8 @@ namespace Personagens
                 break;
             }
           
+          Console.ResetColor();
+          
           if (jogador1.vida < 0){
             jogador1.vida = 0;
           }
@@ -125,10 +157,22 @@ namespace Personagens
             jogador2.vida = 0;
           }
 
+          Console.ForegroundColor = ConsoleColor.Yellow;
           Console.WriteLine($"{jogador1.nome} está com {jogador1.vida} de vida e {jogador2.nome} está com {jogador2.vida} de vida");
+          Console.ResetColor();
             
 
           }while(jogador1.vida > 0 && jogador2.vida > 0);
+
+          if(jogador1.vida == 0){
+            Console.WriteLine($"JOGADOR 2 {jogador2.nome} É O VENCEDOR!!!");
+          }
+          if(jogador2.vida == 0){
+            Console.WriteLine($"JOGADOR 1 {jogador1.nome} É O VENCEDOR!!!");
+          }
+          if(jogador1.vida == 0 && jogador2.vida == 0){
+            Console.WriteLine($"{jogador1.nome} E {jogador2.nome} CAIRAM AO MESMO TEMPO, TEMOS UM EMPATE!!!");
+          }
 
           // int vidaDoJogador2 = jogador2.Defesa(jogador2.Ataque1());
           // if(vidaDoJogador2 <= 0){
