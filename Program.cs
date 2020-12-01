@@ -50,7 +50,8 @@ namespace Personagens
             Console.WriteLine("[3] - Defesa (Diminui o dano recebido em 20)");
             Console.WriteLine("[4] - Cura (Cura de 10 a 40 pontos de vida)");
             do{
-            Console.write("Ação: ");
+            Console.Write("Ação: ");
+            
             jogador1.Escolha = int.Parse(Console.ReadLine());
 
             if (jogador1.vida >= 100 && jogador1.Escolha == 4){
