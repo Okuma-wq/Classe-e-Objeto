@@ -49,8 +49,16 @@ namespace Personagens
             Console.WriteLine("[2] - Ataque 2 (ataque de 20 de dano)");
             Console.WriteLine("[3] - Defesa (Diminui o dano recebido em 20)");
             Console.WriteLine("[4] - Cura (Cura de 10 a 40 pontos de vida)");
+            do{
             jogador1.Escolha = int.Parse(Console.ReadLine());
 
+            if (jogador1.vida >= 100){
+              Console.ForegroundColor = ConsoleColor.Red;
+              Console.WriteLine("Sua vida ja está no máximo, escolha outra ação");
+              Console.ResetColor();
+            }
+            }while (jogador1.vida >= 100);
+            
             Random J2 = new Random();
             jogador2.Escolha = J2.Next(1, 4);
 
@@ -109,7 +117,7 @@ namespace Personagens
                 Console.ResetColor();
                 break;
             }
-
+          
           if (jogador1.vida < 0){
             jogador1.vida = 0;
           }

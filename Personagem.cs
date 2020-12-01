@@ -44,7 +44,11 @@ namespace Personagens
 
             this.vida = this.vida + VdCurada;
 
-            return this.vida = this.vida + VdCurada;
+            if (this.vida >= 100){
+                this.vida = 100;
+            }
+
+            return this.vida;
         }
     }
 }
